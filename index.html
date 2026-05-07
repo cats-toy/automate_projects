@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Castor Troy — AI Automation & Integration for Small Businesses</title>
+<meta name="description" content="Castor Troy builds AI automations and smart integrations for small businesses, solo founders, and independent creators in Singapore. Solo doesn't mean slow anymore."/>
+<meta name="keywords" content="AI automation Singapore, small business automation, workflow integration, ChatGPT integration, Make Zapier n8n, solo founder tools"/>
+<meta name="author" content="Castor Troy"/>
+<meta property="og:title" content="Castor Troy — AI Automation for Small Businesses"/>
+<meta property="og:description" content="Smart automations for small businesses that think big. Solo doesn't mean slow anymore."/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://castortroy.com"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Castor Troy","url":"https://castortroy.com","jobTitle":"AI Automation Specialist","description":"AI automations and smart integrations for small businesses and independent creators","address":{"@type":"PostalAddress","addressLocality":"Singapore"}}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0812;--bg2:#0f0d1a;--bg3:#141228;
+  --purple:#7c3aed;--purple-light:#a78bfa;--purple-dim:#2d1b69;--purple-glow:#7c3aed40;
+  --text:#f0eeff;--text-muted:#9d97c0;--text-dim:#5c5880;
+  --border:#1e1a38;--border-light:#2a2550;--card:#0d0b1e;
+  --font:'Segoe UI',system-ui,sans-serif
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;cursor:none;overflow-x:hidden}
+
+/* CURSOR */
+#cursor{position:fixed;pointer-events:none;z-index:9999;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.13) 0%,transparent 70%);transform:translate(-50%,-50%)}
+#cursor-dot{position:fixed;pointer-events:none;z-index:9999;width:8px;height:8px;border-radius:50%;background:var(--purple-light);transform:translate(-50%,-50%);transition:transform 0.1s}
+
+/* SCROLL PROGRESS */
+#prog{position:fixed;top:0;left:0;height:2px;background:var(--purple-light);z-index:200;width:0%;transition:width 0.1s linear}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(10,8,18,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-weight:700;font-size:1.1rem;color:var(--purple-light);letter-spacing:-0.3px}
+.nav-links{display:flex;gap:0.25rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text-muted);font-size:0.85rem;padding:0.4rem 0.75rem;border-radius:6px;transition:color 0.2s,background 0.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a.active{color:var(--purple-light);background:rgba(124,58,237,0.12)}
+.nav-right{display:flex;align-items:center;gap:0.75rem}
+.nav-cta{background:var(--purple);color:#fff;padding:0.45rem 1.1rem;border-radius:6px;text-decoration:none;font-size:0.88rem;font-weight:600;transition:opacity 0.2s,box-shadow 0.2s;animation:pulseCta 3s ease-in-out infinite}
+.nav-cta:hover{opacity:0.9}
+@keyframes pulseCta{0%,100%{box-shadow:0 0 0 0 rgba(124,58,237,0.5)}50%{box-shadow:0 0 0 8px rgba(124,58,237,0)}}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text-muted);border-radius:2px;transition:transform 0.3s,opacity 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(10,8,18,0.97);border-bottom:1px solid var(--border);padding:1rem 2rem;z-index:99;flex-direction:column;gap:0.25rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{text-decoration:none;color:var(--text-muted);font-size:0.95rem;padding:0.6rem 0.5rem;border-radius:6px;transition:color 0.2s}
+.mobile-menu a:hover{color:var(--purple-light)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}.reveal-delay-2{transition-delay:0.2s}.reveal-delay-3{transition-delay:0.3s}
+
+section{padding:5rem 2rem}
+.container{max-width:1000px;margin:0 auto}
+.section-label{font-size:0.75rem;font-weight:600;color:var(--purple-light);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:0.6rem}
+h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;letter-spacing:-0.5px;margin-bottom:1rem}
+.section-desc{color:var(--text-muted);font-size:1rem;max-width:540px;line-height:1.75}
+
+/* HERO */
+#hero{background:var(--bg);padding:7rem 2rem 6rem;position:relative;overflow:hidden}
+canvas#stars{position:absolute;inset:0;pointer-events:none;z-index:0}
+#hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,0.18) 0%,transparent 65%);pointer-events:none;z-index:0}
+.float-orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(60px);z-index:0}
+.orb1{width:320px;height:320px;background:rgba(124,58,237,0.18);top:-60px;left:-80px;animation:floatA 7s ease-in-out infinite}
+.orb2{width:200px;height:200px;background:rgba(167,139,250,0.12);top:40px;right:-40px;animation:floatB 9s ease-in-out infinite}
+.orb3{width:140px;height:140px;background:rgba(79,70,229,0.15);bottom:20px;left:50%;animation:floatC 6s ease-in-out infinite}
+@keyframes floatA{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-22px) scale(1.05)}}
+@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(18px)}}
+@keyframes floatC{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-14px)}}
+.hero-inner{max-width:700px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:var(--purple-light);font-size:0.78rem;font-weight:600;padding:0.3rem 0.9rem;border-radius:20px;letter-spacing:0.5px;margin-bottom:1.5rem;text-transform:uppercase}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;animation:blink 1.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 6px #4ade80}50%{opacity:0.25;box-shadow:none}}
+.hero-name{margin-bottom:0.5rem;line-height:1;letter-spacing:-1px}
+.name-main{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:800;color:var(--text)}
+.name-last{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:800;color:var(--purple-light)}
+.typewriter-wrap{min-height:2.8rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.8rem}
+#typewriter{font-size:clamp(1.3rem,3vw,2rem);font-weight:600;color:var(--text);letter-spacing:-0.3px}
+#typewriter .cursor-blink{display:inline-block;width:2px;height:1.1em;background:var(--purple-light);margin-left:3px;vertical-align:middle;animation:cursorBlink 0.8s step-end infinite}
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-tagline{font-size:1rem;color:var(--text-muted);max-width:500px;margin:0 auto 0.6rem;line-height:1.75}
+.hero-tagline strong{color:var(--purple-light);font-weight:600}
+.hero-sub-small{font-size:0.85rem;color:var(--text-dim);margin-bottom:2.4rem}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--purple);color:#fff;padding:0.75rem 1.8rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.95rem;animation:pulseCta 3s ease-in-out infinite;transition:opacity 0.2s}
+.btn-primary:hover{opacity:0.9}
+.btn-secondary{background:transparent;color:var(--text);padding:0.75rem 1.8rem;border-radius:8px;text-decoration:none;font-weight:500;font-size:0.95rem;border:1px solid var(--border-light);transition:border-color 0.2s}
+.btn-secondary:hover{border-color:var(--purple)}
+.btn-ghost{background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);color:var(--purple-light);padding:0.75rem 1.6rem;border-radius:8px;text-decoration:none;font-weight:500;font-size:0.92rem;transition:background 0.2s}
+.btn-ghost:hover{background:rgba(124,58,237,0.18)}
+.hero-stats{display:flex;gap:2.5rem;justify-content:center;margin-top:4rem;padding-top:2.5rem;border-top:1px solid var(--border)}
+.stat-num{font-size:2rem;font-weight:700;color:var(--purple-light);display:block}
+.stat-label{font-size:0.78rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.6px}
+
+/* TRUST BAR */
+#trust{padding:1.5rem 2rem;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:0.5rem;color:var(--text-dim);font-size:0.82rem}
+
+/* MARQUEE */
+#marquee-section{padding:2rem 0;background:var(--bg);border-bottom:1px solid var(--border);overflow:hidden}
+.marquee-label{text-align:center;font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:1.2rem}
+.marquee-track{display:flex;gap:0;width:max-content;animation:marquee 28s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.marquee-item{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 2rem;color:var(--text-muted);font-size:0.88rem;font-weight:500;white-space:nowrap;border-right:1px solid var(--border)}
+.marquee-item .tool-icon{font-size:1.1rem}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:4rem;align-items:center;margin-top:3rem}
+.about-avatar{width:100%;aspect-ratio:1;border-radius:20px;background:linear-gradient(135deg,var(--purple-dim),var(--purple));display:flex;align-items:center;justify-content:center;font-size:4rem;font-weight:700;color:rgba(255,255,255,0.9);max-width:280px;border:1px solid rgba(124,58,237,0.3)}
+.about-text p{color:var(--text-muted);margin-bottom:1rem;line-height:1.8;font-size:0.95rem}
+.about-text strong{color:var(--text);font-weight:600}
+.skills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem}
+.skill-tag{background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);color:var(--purple-light);padding:0.28rem 0.75rem;border-radius:20px;font-size:0.8rem;font-weight:500}
+
+/* WHAT I DON'T DO */
+#nope{background:var(--bg)}
+.nope-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem;align-items:start}
+.nope-list,.do-list{display:flex;flex-direction:column;gap:0.75rem}
+.nope-item,.do-item{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.9rem;line-height:1.55}
+.nope-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;flex-shrink:0;margin-top:2px}
+.nope-icon.no{background:rgba(239,68,68,0.12);color:#f87171}
+.nope-icon.yes{background:rgba(74,222,128,0.12);color:#4ade80}
+.nope-item span{color:var(--text-muted)}.do-item span{color:var(--text-muted)}
+.nope-col-title{font-size:0.82rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:0.5rem}
+.nope-col-title.red{color:#f87171}.nope-col-title.green{color:#4ade80}
+
+/* HOW IT WORKS */
+#how{background:var(--bg2)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:3rem}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem}
+.step-num{font-size:2.5rem;font-weight:800;color:rgba(124,58,237,0.2);line-height:1;margin-bottom:0.8rem}
+.step-title{font-size:0.98rem;font-weight:600;margin-bottom:0.4rem;color:var(--text)}
+.step-desc{font-size:0.83rem;color:var(--text-muted);line-height:1.65}
+
+/* PROJECTS */
+#projects{background:var(--bg)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s}
+.project-card:hover{transform:translateY(-6px);border-color:rgba(124,58,237,0.4);box-shadow:0 16px 40px rgba(124,58,237,0.1)}
+.project-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:2.8rem}
+.project-body{padding:1.2rem 1.4rem}
+.project-tag{font-size:0.72rem;font-weight:600;color:var(--purple-light);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:0.4rem}
+.project-title{font-size:1rem;font-weight:600;margin-bottom:0.45rem;color:var(--text)}
+.project-desc{font-size:0.85rem;color:var(--text-muted);line-height:1.65;margin-bottom:0.6rem}
+.project-outcome{font-size:0.8rem;color:#4ade80;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:4px}
+.project-link{font-size:0.83rem;font-weight:500;color:var(--purple-light);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:gap 0.2s}
+.project-link:hover{gap:8px}
+
+/* SERVICES */
+#services{background:var(--bg2)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:3rem}
+.service-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem;transition:border-color 0.25s,box-shadow 0.25s}
+.service-card:hover{border-color:rgba(124,58,237,0.35);box-shadow:0 8px 24px rgba(124,58,237,0.08)}
+.service-icon{width:44px;height:44px;border-radius:10px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem}
+.service-name{font-size:0.98rem;font-weight:600;margin-bottom:0.4rem;color:var(--text)}
+.service-desc{font-size:0.83rem;color:var(--text-muted);line-height:1.65}
+.service-price{margin-top:1.1rem;font-size:0.8rem;font-weight:600;color:var(--purple-light);background:rgba(124,58,237,0.1);display:inline-block;padding:0.2rem 0.6rem;border-radius:5px}
+
+/* TESTIMONIALS */
+#testimonials{background:var(--bg)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
+.testimonial-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.6rem;transition:border-color 0.25s}
+.testimonial-card:hover{border-color:rgba(124,58,237,0.3)}
+.stars{color:var(--purple-light);font-size:0.95rem;margin-bottom:1rem;letter-spacing:2px}
+.testimonial-text{font-size:0.9rem;color:var(--text-muted);line-height:1.8;font-style:italic;margin-bottom:1.3rem}
+.testimonial-author{display:flex;align-items:center;gap:0.75rem}
+.author-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;color:#fff;flex-shrink:0;background:var(--purple)}
+.author-name{font-size:0.88rem;font-weight:600;color:var(--text)}
+.author-role{font-size:0.76rem;color:var(--text-dim)}
+
+/* FAQ */
+#faq{background:var(--bg2)}
+.faq-list{margin-top:3rem;display:flex;flex-direction:column;gap:0.75rem;max-width:680px}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.faq-q{width:100%;background:none;border:none;color:var(--text);font-family:var(--font);font-size:0.95rem;font-weight:600;padding:1.1rem 1.4rem;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color 0.2s}
+.faq-q:hover{color:var(--purple-light)}
+.faq-arrow{font-size:0.75rem;color:var(--text-dim);transition:transform 0.3s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.35s ease}
+.faq-a-inner{padding:0 1.4rem 1.1rem;font-size:0.88rem;color:var(--text-muted);line-height:1.75}
+.faq-item.open .faq-a{max-height:200px}
+
+/* CTA BAND */
+#cta-band{background:linear-gradient(135deg,#1a0a3d,#2d1b69);padding:4rem 2rem;text-align:center;border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light)}
+#cta-band h2{margin-bottom:0.75rem}
+#cta-band p{color:var(--text-muted);font-size:1rem;margin:0 auto 2rem;max-width:480px}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* CONTACT */
+#contact{background:var(--bg)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;align-items:start}
+.contact-links{display:flex;flex-direction:column;gap:0.9rem;margin-top:1.5rem}
+.contact-link{display:flex;align-items:center;gap:0.75rem;color:var(--text-muted);text-decoration:none;font-size:0.92rem;transition:color 0.2s}
+.contact-link:hover{color:var(--purple-light)}
+.contact-link-icon{width:36px;height:36px;border-radius:8px;background:rgba(124,58,237,0.1);border:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.contact-form{display:flex;flex-direction:column;gap:0.9rem}
+.form-input{background:rgba(255,255,255,0.04);border:1px solid var(--border-light);border-radius:8px;padding:0.72rem 1rem;color:var(--text);font-size:0.9rem;font-family:var(--font);width:100%;outline:none;transition:border-color 0.2s}
+.form-input::placeholder{color:var(--text-dim)}
+.form-input:focus{border-color:var(--purple)}
+textarea.form-input{resize:vertical;min-height:100px}
+.form-btn{background:var(--purple);color:#fff;border:none;padding:0.8rem 1.6rem;border-radius:8px;font-size:0.92rem;font-weight:600;cursor:pointer;font-family:var(--font);animation:pulseCta 3s ease-in-out infinite}
+
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem;text-align:center}
+.footer-name{font-size:1rem;font-weight:700;color:var(--purple-light);margin-bottom:0.4rem}
+.footer-links{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap}
+.footer-links a{color:var(--text-dim);text-decoration:none;font-size:0.82rem;transition:color 0.2s}
+.footer-links a:hover{color:var(--purple-light)}
+.footer-copy{color:var(--text-dim);font-size:0.78rem}
+
+@media(max-width:700px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .about-grid,.contact-grid,.nope-grid{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  .trust-inner{gap:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+
+<nav id="navbar" aria-label="Main navigation">
+  <div class="nav-inner">
+    <span class="nav-logo">Castor Troy</span>
+    <ul class="nav-links" role="list">
+      <li><a href="#about" data-section="about">About</a></li>
+      <li><a href="#how" data-section="how">Process</a></li>
+      <li><a href="#projects" data-section="projects">Projects</a></li>
+      <li><a href="#services" data-section="services">Services</a></li>
+      <li><a href="#faq" data-section="faq">FAQ</a></li>
+      <li><a href="#contact" data-section="contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#contact" class="nav-cta">Book a Free Call</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about">About</a>
+  <a href="#how">Process</a>
+  <a href="#projects">Projects</a>
+  <a href="#services">Services</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" style="color:var(--purple-light);font-weight:600;">Book a Free Call →</a>
+</div>
+
+<main>
+
+<section id="hero" aria-label="Hero">
+  <canvas id="stars"></canvas>
+  <div class="float-orb orb1"></div>
+  <div class="float-orb orb2"></div>
+  <div class="float-orb orb3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge reveal"><span class="badge-dot"></span>Available for new projects</div>
+    <div class="hero-name reveal reveal-delay-1">
+      <span class="name-main">Castor </span><span class="name-last">Troy</span>
+    </div>
+    <div class="typewriter-wrap reveal reveal-delay-2">
+      <div id="typewriter"><span class="cursor-blink"></span></div>
+    </div>
+    <p class="hero-tagline reveal reveal-delay-2"><strong>Smart automations for small businesses that think big.</strong></p>
+    <p class="hero-sub-small reveal reveal-delay-2">I help solo founders, small teams & independent creators save time, cut costs, and grow — without hiring a full team.</p>
+    <div class="hero-btns reveal reveal-delay-3">
+      <a href="#contact" class="btn-primary">Book a Free Call</a>
+      <a href="#projects" class="btn-secondary">See My Work</a>
+      <a href="#services" class="btn-ghost">View Services</a>
+    </div>
+    <div class="hero-stats reveal reveal-delay-3">
+      <div><span class="stat-num counter" data-target="50">0</span><span class="stat-label">Automations Built</span></div>
+      <div><span class="stat-num counter" data-target="30">0</span><span class="stat-label">Clients Helped</span></div>
+      <div><span class="stat-num counter" data-target="1000" data-suffix="s">0</span><span class="stat-label">Hours Saved</span></div>
+    </div>
+  </div>
+</section>
+
+<div id="trust" aria-label="Trust signals">
+  <div class="trust-inner">
+    <div class="trust-item reveal">🤖 ChatGPT & Claude integrations</div>
+    <div class="trust-item reveal reveal-delay-1">⚡ Make, Zapier & n8n</div>
+    <div class="trust-item reveal reveal-delay-2">🔗 API & webhook connections</div>
+    <div class="trust-item reveal reveal-delay-3">📍 Based in Singapore</div>
+  </div>
+</div>
+
+<div id="marquee-section">
+  <p class="marquee-label">Tools I work with</p>
+  <div class="marquee-track" id="marquee-track"></div>
+</div>
+
+<section id="about" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-avatar reveal" role="img" aria-label="Castor Troy">CT</div>
+      <div class="about-text reveal reveal-delay-1">
+        <div class="section-label">About Me</div>
+        <h2 id="about-heading">I automate the grind so you can focus on growth</h2>
+        <p>Hey — I'm Castor Troy, an AI automation specialist based in Singapore. I work with <strong>small business owners, indie hackers, and solo operators</strong> who are tired of spending hours on repetitive tasks that a smart workflow could handle in seconds.</p>
+        <p>I build <strong>lean, targeted automations</strong> — AI agents, workflow integrations, and custom tools — that fit your exact situation and actually get used. No bloated software. No 6-month implementations. Just things that work.</p>
+        <p>When I'm not building automations, I'm mentoring other indie builders, writing about AI tools, and finding the best hawker centres in Singapore.</p>
+        <div class="skills">
+          <span class="skill-tag">ChatGPT / Claude APIs</span><span class="skill-tag">Make (Integromat)</span>
+          <span class="skill-tag">Zapier / n8n</span><span class="skill-tag">Python</span>
+          <span class="skill-tag">Airtable</span><span class="skill-tag">Notion</span>
+          <span class="skill-tag">Webhooks & APIs</span><span class="skill-tag">Prompt Engineering</span>
+          <span class="skill-tag">WhatsApp Bots</span><span class="skill-tag">Google Workspace</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nope" aria-labelledby="nope-heading">
+  <div class="container">
+    <div class="section-label reveal">Transparency</div>
+    <h2 id="nope-heading" class="reveal reveal-delay-1">What I do — and don't do</h2>
+    <p class="section-desc reveal reveal-delay-2">I'd rather be honest upfront than waste your time. Here's exactly where I fit.</p>
+    <div class="nope-grid reveal reveal-delay-2">
+      <div>
+        <p class="nope-col-title green">✓ Great fit if you need...</p>
+        <div class="do-list">
+          <div class="do-item"><div class="nope-icon yes">✓</div><span>Automating repetitive tasks eating your week</span></div>
+          <div class="do-item"><div class="nope-icon yes">✓</div><span>A custom AI chatbot or assistant for your business</span></div>
+          <div class="do-item"><div class="nope-icon yes">✓</div><span>Connecting tools that don't talk to each other</span></div>
+          <div class="do-item"><div class="nope-icon yes">✓</div><span>Fast turnaround — days, not months</span></div>
+          <div class="do-item"><div class="nope-icon yes">✓</div><span>Someone who explains things in plain English</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="nope-col-title red">✗ Not the right fit if you need...</p>
+        <div class="nope-list">
+          <div class="nope-item"><div class="nope-icon no">✗</div><span>A full software development team or CTO</span></div>
+          <div class="nope-item"><div class="nope-icon no">✗</div><span>Enterprise-scale infrastructure (500+ employees)</span></div>
+          <div class="nope-item"><div class="nope-icon no">✗</div><span>A long-term retainer with weekly standups</span></div>
+          <div class="nope-item"><div class="nope-icon no">✗</div><span>Building a mobile app from scratch</span></div>
+          <div class="nope-item"><div class="nope-icon no">✗</div><span>Someone to manage your social media or marketing</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" aria-labelledby="how-heading">
+  <div class="container">
+    <div class="section-label reveal">The Process</div>
+    <h2 id="how-heading" class="reveal reveal-delay-1">From idea to live in under 2 weeks</h2>
+    <p class="section-desc reveal reveal-delay-2">No jargon, no long timelines. Most projects are done before your competitor even gets a quote.</p>
+    <div class="steps">
+      <div class="step-card reveal"><div class="step-num">01</div><div class="step-title">Free discovery call</div><p class="step-desc">We talk through your biggest time-drains and I map out what's automatable — no tech knowledge needed from you.</p></div>
+      <div class="step-card reveal reveal-delay-1"><div class="step-num">02</div><div class="step-title">Custom proposal</div><p class="step-desc">You get a clear scope, fixed price, and timeline. No scope creep, no surprise invoices.</p></div>
+      <div class="step-card reveal reveal-delay-2"><div class="step-num">03</div><div class="step-title">Build & test</div><p class="step-desc">I build and test end-to-end, then walk you through it so you're never dependent on me to keep it running.</p></div>
+      <div class="step-card reveal reveal-delay-3"><div class="step-num">04</div><div class="step-title">Go live + support</div><p class="step-desc">We launch it, iron out any kinks, and I stick around for 30 days of support included in every project.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" aria-labelledby="projects-heading">
+  <div class="container">
+    <div class="section-label reveal">Selected Work</div>
+    <h2 id="projects-heading" class="reveal reveal-delay-1">Results, not just projects</h2>
+    <p class="section-desc reveal reveal-delay-2">Real automations for real businesses — with measurable outcomes.</p>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#2d1b69,#7c3aed);">🤖</div>
+        <div class="project-body">
+          <div class="project-tag">AI · E-commerce</div>
+          <div class="project-title">AI Customer Support Bot</div>
+          <p class="project-desc">WhatsApp + website chatbot for a local retailer — trained on their product catalogue and FAQs.</p>
+          <div class="project-outcome">↓ 70% drop in manual support messages</div>
+          <a href="#" class="project-link">View Case Study →</a>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#1a1060,#4f46e5);">⚡</div>
+        <div class="project-body">
+          <div class="project-tag">Automation · Agency</div>
+          <div class="project-title">Client Onboarding Pipeline</div>
+          <p class="project-desc">Automated a 12-step onboarding process — from signed contract to project kickoff, zero manual steps.</p>
+          <div class="project-outcome">↑ 3 hrs saved per new client</div>
+          <a href="#" class="project-link">View Case Study →</a>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#3b0764,#9333ea);">📊</div>
+        <div class="project-body">
+          <div class="project-tag">AI · Finance</div>
+          <div class="project-title">AI Invoice Generator</div>
+          <p class="project-desc">Invoices, summaries, and client reports auto-generated from a simple spreadsheet input.</p>
+          <div class="project-outcome">↓ 80% time spent on admin</div>
+          <a href="#" class="project-link">View Case Study →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="section-label reveal">What I Offer</div>
+    <h2 id="services-heading" class="reveal reveal-delay-1">Services built for small teams</h2>
+    <p class="section-desc reveal reveal-delay-2">Straightforward packages — no retainers required, no enterprise fluff.</p>
+    <div class="services-grid">
+      <div class="service-card reveal"><div class="service-icon">🤖</div><div class="service-name">AI Chatbot & Assistant</div><p class="service-desc">Custom AI bots trained on your business data — for customer support, internal Q&A, lead capture, or booking.</p><div class="service-price">From $800</div></div>
+      <div class="service-card reveal reveal-delay-1"><div class="service-icon">⚡</div><div class="service-name">Workflow Automation</div><p class="service-desc">Connect your tools and eliminate repetitive tasks using Make, Zapier, or n8n — from lead capture to reporting.</p><div class="service-price">From $500</div></div>
+      <div class="service-card reveal reveal-delay-2"><div class="service-icon">🔗</div><div class="service-name">API & Tool Integration</div><p class="service-desc">Stitch together your apps — CRM, email, spreadsheets, payments — so they actually talk to each other.</p><div class="service-price">From $600</div></div>
+      <div class="service-card reveal reveal-delay-3"><div class="service-icon">🧠</div><div class="service-name">AI Strategy Session</div><p class="service-desc">A focused 90-min session to map out exactly where AI can save you time and money — with a clear action plan.</p><div class="service-price">$150 / session</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-label reveal">Kind Words</div>
+    <h2 id="testimonials-heading" class="reveal reveal-delay-1">Small teams, big results</h2>
+    <p class="section-desc reveal reveal-delay-2">I work with people, not corporations. Here's what they say.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"Castor built us a WhatsApp bot in under a week. Our support volume dropped instantly and customers actually prefer it. Can't believe we didn't do this sooner."</p><div class="testimonial-author"><div class="author-avatar">JT</div><div><div class="author-name">Jasmine Tan</div><div class="author-role">Founder, Bloom & Co.</div></div></div></div>
+      <div class="testimonial-card reveal reveal-delay-1"><div class="stars">★★★★★</div><p class="testimonial-text">"I was drowning in admin work running my agency solo. Castor automated my entire onboarding flow and it just works. I got 3 hours back every single week."</p><div class="testimonial-author"><div class="author-avatar">RN</div><div><div class="author-name">Ryan Ng</div><div class="author-role">Solo Agency Owner</div></div></div></div>
+      <div class="testimonial-card reveal reveal-delay-2"><div class="stars">★★★★★</div><p class="testimonial-text">"The AI strategy session alone was worth it. Castor helped me see exactly what to automate first — no fluff, just practical steps. Hired him for the build straight after."</p><div class="testimonial-author"><div class="author-avatar">MK</div><div><div class="author-name">Maya Krishnan</div><div class="author-role">Independent Bookkeeper</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="section-label reveal">Got Questions?</div>
+    <h2 id="faq-heading" class="reveal reveal-delay-1">Frequently asked</h2>
+    <p class="section-desc reveal reveal-delay-2">The stuff people always ask before reaching out — answered honestly.</p>
+    <div class="faq-list reveal reveal-delay-2">
+      <div class="faq-item">
+        <button class="faq-q">Do I need to be technical to work with you? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Not at all. I explain everything in plain English and handle all the technical setup. You just need to know your business — I'll handle the rest.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How long does a typical project take? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Most automations go from brief to live in 5–14 days. Larger, multi-system projects can take 3–4 weeks. I'll always give you a clear timeline before we start.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What if something breaks after launch? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Every project includes 30 days of support after launch. If something breaks or misbehaves during that window, I fix it at no extra charge.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you offer ongoing maintenance? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — I offer optional monthly check-in packages for clients who want peace of mind. But I always build things so you can manage them yourself if you prefer.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How much does it cost? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Most projects range from $500–$2,500 depending on complexity. I give fixed-price quotes upfront — no hourly billing surprises. An AI Strategy Session is $150 if you want to explore before committing.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can you work with my existing tools? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Almost certainly yes. I work with 100+ tools including Google Workspace, Notion, Airtable, Shopify, Stripe, WhatsApp, Slack, and most CRMs. If you're unsure, just ask.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta-band" aria-label="Call to action" style="background:linear-gradient(135deg,#1a0a3d,#2d1b69);padding:4rem 2rem;text-align:center;border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light)">
+  <h2 class="reveal">Ready to get time back?</h2>
+  <p class="reveal reveal-delay-1" style="color:var(--text-muted);font-size:1rem;margin:0.75rem auto 2rem;max-width:480px">Let's find the one automation that changes your week. First call is free, no strings attached.</p>
+  <div class="cta-btns reveal reveal-delay-2">
+    <a href="#contact" class="btn-primary">Book a Free Call</a>
+    <a href="#services" class="btn-secondary">See Services</a>
+  </div>
+</section>
+
+<section id="contact" aria-labelledby="contact-heading">
+  <div class="container">
+    <div class="section-label reveal">Get in Touch</div>
+    <h2 id="contact-heading" class="reveal reveal-delay-1">Let's build something that works for you</h2>
+    <p class="section-desc reveal reveal-delay-2">Tell me what's eating your time — I'll tell you if I can fix it. Usually hear back within 24 hours.</p>
+    <div class="contact-grid">
+      <div class="reveal reveal-delay-1">
+        <div class="contact-links">
+          <a href="mailto:hello@castortroy.com" class="contact-link"><span class="contact-link-icon">✉️</span>hello@castortroy.com</a>
+          <a href="#" class="contact-link"><span class="contact-link-icon">💼</span>linkedin.com/in/castortroy</a>
+          <a href="#" class="contact-link"><span class="contact-link-icon">🐙</span>github.com/castortroy</a>
+          <a href="#" class="contact-link"><span class="contact-link-icon">🐦</span>@castortroy</a>
+        </div>
+      </div>
+      <div class="contact-form reveal reveal-delay-2">
+        <input class="form-input" type="text" placeholder="Your name" aria-label="Your name"/>
+        <input class="form-input" type="email" placeholder="Your email" aria-label="Your email"/>
+        <input class="form-input" type="text" placeholder="What do you want to automate?" aria-label="Project type"/>
+        <textarea class="form-input" placeholder="Tell me about the repetitive stuff eating your time..." aria-label="Project details"></textarea>
+        <button class="form-btn">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-name">Castor Troy</div>
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="#about">About</a><a href="#how">Process</a><a href="#projects">Projects</a>
+    <a href="#services">Services</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+  </nav>
+  <p class="footer-copy">© 2026 Castor Troy · AI Automation for Small Businesses · Singapore 🇸🇬</p>
+</footer>
+
+<script>
+/* CURSOR */
+const cursor=document.getElementById('cursor'),dot=document.getElementById('cursor-dot');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+(function ac(){cx+=(mx-cx)*0.08;cy+=(my-cy)*0.08;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(ac)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.5)';dot.style.opacity='0.5'});
+  el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';dot.style.opacity='1'});
+});
+
+/* SCROLL PROGRESS */
+window.addEventListener('scroll',()=>{
+  const p=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  document.getElementById('prog').style.width=p+'%';
+});
+
+/* STAR FIELD */
+const canvas=document.getElementById('stars'),ctx=canvas.getContext('2d');
+let stars=[];
+function resizeCanvas(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight}
+resizeCanvas();
+window.addEventListener('resize',()=>{resizeCanvas();initStars()});
+function initStars(){stars=[];for(let i=0;i<120;i++)stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2+0.2,vx:(Math.random()-0.5)*0.15,vy:(Math.random()-0.5)*0.15,o:Math.random()*0.5+0.1})}
+initStars();
+(function drawStars(){ctx.clearRect(0,0,canvas.width,canvas.height);stars.forEach(s=>{ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(167,139,250,${s.o})`;ctx.fill();s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x=canvas.width;if(s.x>canvas.width)s.x=0;if(s.y<0)s.y=canvas.height;if(s.y>canvas.height)s.y=0});requestAnimationFrame(drawStars)})();
+
+/* TYPEWRITER */
+const phrases=["Solo doesn't mean slow anymore.","Repetitive tasks are so 2023.","Your competitor is already automating.","Work less. Automate more. Grow faster.","AI tools for people who get things done."];
+let pi=0,ci=0,deleting=false,tw=document.getElementById('typewriter');
+function type(){
+  const phrase=phrases[pi];
+  const txt=deleting?phrase.substring(0,ci-1):phrase.substring(0,ci+1);
+  ci=deleting?ci-1:ci+1;
+  tw.innerHTML=txt+'<span class="cursor-blink"></span>';
+  let speed=deleting?40:70;
+  if(!deleting&&ci===phrase.length){speed=2200;deleting=true}
+  else if(deleting&&ci===0){deleting=false;pi=(pi+1)%phrases.length;speed=400}
+  setTimeout(type,speed);
+}
+type();
+
+/* COUNTER */
+function animCount(el){
+  const target=+el.dataset.target,suffix=el.dataset.suffix||'+';
+  let start=0,dur=1800,step=target/dur*16;
+  const tick=()=>{start=Math.min(start+step,target);el.textContent=Math.floor(start).toLocaleString()+suffix;if(start<target)requestAnimationFrame(tick)};
+  tick();
+}
+const cro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){animCount(e.target);cro.unobserve(e.target)}})
+},{threshold:0.5});
+document.querySelectorAll('.counter').forEach(el=>cro.observe(el));
+
+/* SCROLL REVEAL */
+const reveals=document.querySelectorAll('.reveal');
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}})
+},{threshold:0.1});
+reveals.forEach(el=>ro.observe(el));
+
+/* NAV HIGHLIGHT */
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a[data-section]');
+const sro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.classList.toggle('active',a.dataset.section===e.target.id))})
+},{threshold:0.3});
+sections.forEach(s=>sro.observe(s));
+
+/* HAMBURGER */
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+
+/* FAQ */
+document.querySelectorAll('.faq-q').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement;
+    const wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen)item.classList.add('open');
+  });
+});
+
+/* MARQUEE */
+const tools=[
+  {icon:'🤖',name:'ChatGPT'},{icon:'🧠',name:'Claude AI'},{icon:'⚡',name:'Make'},{icon:'🔁',name:'Zapier'},
+  {icon:'🔀',name:'n8n'},{icon:'📋',name:'Airtable'},{icon:'📝',name:'Notion'},{icon:'📊',name:'Google Sheets'},
+  {icon:'💬',name:'WhatsApp API'},{icon:'📧',name:'Gmail'},{icon:'🛒',name:'Shopify'},{icon:'💳',name:'Stripe'},
+  {icon:'📅',name:'Calendly'},{icon:'💼',name:'HubSpot'},{icon:'🔔',name:'Slack'},{icon:'📁',name:'Google Drive'}
+];
+const track=document.getElementById('marquee-track');
+const doubled=[...tools,...tools];
+track.innerHTML=doubled.map(t=>`<div class="marquee-item"><span class="tool-icon">${t.icon}</span>${t.name}</div>`).join('');
+</script>
+</body>
+</html>
